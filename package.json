@@ -1,0 +1,18 @@
+{
+  "name": "curry-request",
+  "version": "1.0.0",
+  "description": "Http request client with build with one curried function",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "cross-fetch": "^3.0.4"
+  }
+}
