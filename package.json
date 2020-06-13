@@ -1,11 +1,12 @@
 {
   "name": "curry-request",
-  "version": "1.0.0",
-  "description": "Http request client with build with one curried function",
+  "version": "1.0.1",
+  "description": "Http request client built with one curried function",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +15,11 @@
   },
   "dependencies": {
     "cross-fetch": "^3.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fracalo/curry-request.git"
+  },
+  "keywords": ["http", "request", "fetch", "client"],
+  "author": "friki"
 }
