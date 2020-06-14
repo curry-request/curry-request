@@ -13,13 +13,13 @@ const request =
         headers.Authorization = `Bearer ${token}`
       }
 
-      const config = {
+      const httpConfig = {
         method,
         headers,
         body: JSON.stringify(payload)
       }
 
-      return fetch(`${baseUrl}${route || ''}`, config)
+      return fetch(`${baseUrl}${route || ''}`, httpConfig)
 }
 
 export default request
