@@ -10,4 +10,4 @@ describe("we can make a simple fetch request", () => {
       })
       .catch(done)
   })
-}
+})

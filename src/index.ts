@@ -1,25 +1,27 @@
-/// <reference path="../node_modules/cross-fetch/index.d.ts" />
-import fetch from 'cross-fetch'
+import crossFetch from "cross-fetch"
 
-const request = 
-    (baseUrl: string) =>
-    (baseHeaders: {[k: string]: string}) =>
-    (method: string) =>
-    (route?: string) =>
-    (payload?: {[k: string]: string}) =>
-    (token?: string) => {
-      const headers = baseHeaders
-      if (token) {
-        headers.Authorization = `Bearer ${token}`
-      }
+const request = (
+  baseUrl: string,
+  alternativeFetchImpl?: typeof fetch
+) => (baseHeaders: { [k: string]: string }) => (method: string) => (
+  route?: string
+) => (payload?: { [k: string]: string }) => (
+  token?: string
+): Promise<Response> => {
+  const headers = baseHeaders
+  if (token) {
+    headers.Authorization = `Bearer ${token}`
+  }
 
-      const httpConfig = {
-        method,
-        headers,
-        body: JSON.stringify(payload)
-      }
+  const fetch = alternativeFetchImpl || crossFetch
 
-      return fetch(`${baseUrl}${route || ''}`, httpConfig)
+  const httpConfig = {
+    method,
+    headers,
+    body: JSON.stringify(payload),
+  }
+
+  return fetch(`${baseUrl}${route || ""}`, httpConfig)
 }
 
 export default request

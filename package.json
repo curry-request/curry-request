@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "lint": "eslint --fix",
     "test": "mocha -r ts-node/register test/*.ts",
     "build": "tsc",
     "prepare": "npm run build",
