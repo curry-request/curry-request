@@ -18,7 +18,10 @@ const request = (
   const httpConfig = {
     method,
     headers,
-    body: JSON.stringify(payload),
+  }
+
+  if (payload) {
+    httpConfig.body = JSON.stringify(payload)
   }
 
   return fetch(`${baseUrl}${route || ""}`, httpConfig)
