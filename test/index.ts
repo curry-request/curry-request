@@ -33,7 +33,7 @@ describe("Smoke tests", () => {
       .catch(done)
   })
 
-  it.only("Doc post test should work", function (done) {
+  it("Doc post test should work", function (done) {
     this.timeout(0)
     postTodo({ title: "BuyMilk", completed: false })
       .then((res) => {
