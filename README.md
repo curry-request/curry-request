@@ -6,7 +6,7 @@ This module was born while dealing with REST resources in front-end applications
 de-duplicating the configuration of `fetch` has proven, in our experience, to be beneficial in the maintainability of the App's Api calls.
 
 This is implemented in a functional fashion extending the configuration definition for the fetch function,  
-the original definition the module is:
+the original definition is:
 
 ```haskell
   curryRequest :
@@ -29,6 +29,7 @@ npm install -S curry-request
 This package is written in typescript, types included.
 
 ## Usage
+
 Currying the main function you should be able to easily map REST APIs:
 
 ```ts
@@ -49,7 +50,7 @@ getTodosById("1")
   .then(res => console.log(res))
 
 // post example
-const postTodo = payload => apiPost('/todos)(payload)() 
+const postTodo = payload => apiPost('/todos)(payload)()
 postTodo({title: "BuyMilk", completed: false})
   .then(res => res.json())
   .then(res => console.log(res))
@@ -57,38 +58,34 @@ postTodo({title: "BuyMilk", completed: false})
 ```
 
 ## Parameters explained
-    - baseUrl: _string_ the webApi base url, root path for all routes belonging to a specific backend.
-    - baseHeaders?: _object_ the base headers included in every call (the token can be added later)  
-    - method: _string_ any http verb ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', etc.) 
-    - route?: _string_ the defining part of the route (and eventually the query strings)
-    - payload?: _object_ this will be serialized and attached to the body section of the request
-    - token?: string this will be used as defined in JWT specs, `Authorization: Bearer ${token}`
+
+- baseUrl: _string_ the webApi base url, root path for all routes belonging to a specific backend.
+- baseHeaders?: _object_ the base headers included in every call (the token can be added later)
+- method: _string_ any http verb ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', etc.)
+- route?: _string_ the defining part of the route (and eventually the query strings)
+- payload?: _object_ | _string_ the body section of the request (if an object is passed it will also be serialized)
+- token?: string this will be used as defined in JWT specs, `Authorization: Bearer ${token}`
 
 ## Compatibility
 
-Although it was born in browser context the default fetch implementation (`cross-fetch`) is compatible also with **nodejs**.
+Although it was born in browser context the default fetch implementation (`cross-fetch`) is compatible also with **nodejs**.  
 If you're not happy with that the fetch implementation can actually be [swapped](#extendability).
 
-
-
 ## Extendability
+
 One of the motivations for centralizing all Api requests is having the ability to manipulate them in one place.  
 Therefore we provide additional parameters that can be used in order to expand the function,
 following are a list of options that can be accessed through optional parameters,
 if you use Typescript in your project you should be able to identify these,  
 following is a complete description of all options:
-```ts
 
+
+```ts
 curryRequest
   (baseUrl: string, fetchImplementation?: (req: Request => Promise<Response>)) =>
-  (baseHeaders?: {[headerName: string]: string}) => 
+  (baseHeaders?: {[headerName: string]: string}) =>
   (method: string) =>
   (route?: string) =>
-  (payload?: {[k: string]: string}) =>
-  (token?: string) 
-
+  (payload?: string | object) =>
+  (token?: string)
 ```
-
-
-
-  
