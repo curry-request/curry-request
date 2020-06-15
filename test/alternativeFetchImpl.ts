@@ -2,7 +2,7 @@ import { assert } from "chai"
 import request from "../lib"
 import { fetch } from "cross-fetch"
 
-import mockedFetch from "./utils/mockedFetch"
+import { mockedFetch } from "./utils"
 import nodeFetch from "node-fetch"
 import isoUnfetch from "isomorphic-unfetch"
 
@@ -14,7 +14,7 @@ const alternatives = [
   (isoUnfetch as unknown) as typeof fetch,
 ]
 
-describe("We can exchange fetch implementations", () => {
+describe("alternativeFetchImpl - We can exchange fetch implementations", () => {
   alternatives.forEach((impl) => {
     it(`Should be able to use mockedFetch`, (done) => {
       request(

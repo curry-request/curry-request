@@ -3,28 +3,35 @@ import crossFetch from "cross-fetch"
 const request = (
   baseUrl: string,
   alternativeFetchImpl?: typeof fetch
-) => (baseHeaders: { [k: string]: string }) => (method: string) => (
+) => (baseHeaders?: { [k: string]: string }) => (method: string) => (
   route?: string
-) => (payload?: { [k: string]: string }) => (
+) => (payload?: string | object) => (
   token?: string
 ): Promise<Response> => {
-  const headers = baseHeaders
+  const headers = baseHeaders || {}
   if (token) {
     headers.Authorization = `Bearer ${token}`
   }
 
   const fetch = alternativeFetchImpl || crossFetch
 
-  const httpConfig = {
+  // we add an abort() method
+  //const abortCtrl = new AbortController()
+  //const signal = abortCtrl.signal
+  //request.abort = () => abortCtrl.abort()
+
+  const httpConfig: RequestInit = {
     method,
     headers,
+    //signal,
   }
 
   if (payload) {
-    httpConfig.body = JSON.stringify(payload)
+    httpConfig.body = typeof payload === "object" ? JSON.stringify(payload) : payload
   }
 
-  return fetch(`${baseUrl}${route || ""}`, httpConfig)
+  const res = fetch(`${baseUrl}${route || ""}`, httpConfig)
+  return res
 }
 
 export default request
