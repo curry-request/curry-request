@@ -5,9 +5,7 @@ const request = (
   alternativeFetchImpl?: typeof fetch
 ) => (baseHeaders?: { [k: string]: string }) => (method: string) => (
   route?: string
-) => (payload?: string | object) => (
-  token?: string
-): Promise<Response> => {
+) => (payload?: string | object) => (token?: string): Promise<Response> => {
   const headers = baseHeaders || {}
   if (token) {
     headers.Authorization = `Bearer ${token}`
@@ -22,12 +20,13 @@ const request = (
 
   const httpConfig: RequestInit = {
     method,
-    headers,
+    headers
     //signal,
   }
 
   if (payload) {
-    httpConfig.body = typeof payload === "object" ? JSON.stringify(payload) : payload
+    httpConfig.body =
+      typeof payload === "object" ? JSON.stringify(payload) : payload
   }
 
   const res = fetch(`${baseUrl}${route || ""}`, httpConfig)

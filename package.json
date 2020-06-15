@@ -1,15 +1,18 @@
 {
   "name": "curry-request",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Http request client built with one curried function",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": ["lib/*"],
   "scripts": {
+    "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix",
     "test": "mocha -r ts-node/register test/*.ts",
     "build": "tsc",
     "prepare": "npm run build",
-    "postversion": "git push && git push --tags"
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint"
   },
   "author": "friki",
   "license": "ISC",
