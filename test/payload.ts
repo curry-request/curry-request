@@ -44,4 +44,14 @@ describe("payload - We can pass the string array and objects as payload paramete
       })
       .catch(done)
   })
+  it(`Should be able to use an array`, (done) => {
+    const out = ["hello", "hola"]
+    request("https://dontmatter.com/", echoReq(out))()("PUT")()(out)()
+      .then((x) => x.json())
+      .then((x) => {
+        assert.equal(x, out)
+        done()
+      })
+      .catch(done)
+  })
 })
