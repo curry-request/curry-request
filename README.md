@@ -6,7 +6,7 @@ This module was born while dealing with REST resources in front-end applications
 de-duplicating the configuration of `fetch` has proven, in our experience, to be beneficial in the maintainability of the App's Api calls.
 
 This is implemented in a functional fashion extending the configuration definition for the fetch function,  
-the original definition the module is:
+the original definition is:
 
 ```haskell
   curryRequest :
@@ -18,7 +18,7 @@ the original definition the module is:
     token -> Fetch.Response
 ```
 
-Although the module is already evolving to include additional/alternative parameters to the original definition it is guaranteed to stay compatible with its original form.
+Although the module is already evolving to include additional/alternative parameters, it is guaranteed to stay compatible with its original form.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Although the module is already evolving to include additional/alternative parame
 npm install -S curry-request
 ```
 
-This package is written in typescript, types included.
+This package is written in typescript, types are included.
 
 ## Usage
 Currying the main function you should be able to easily map REST APIs:
@@ -62,7 +62,7 @@ postTodo({title: "BuyMilk", completed: false})
     - method: _string_ any http verb ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', etc.) 
     - route?: _string_ the defining part of the route (and eventually the query strings)
     - payload?: _object_ this will be serialized and attached to the body section of the request
-    - token?: string this will be used as defined in JWT specs, `Authorization: Bearer ${token}`
+    - token?: _string_ this will be used as defined in JWT specs, `Authorization: Bearer ${token}`
 
 ## Compatibility
 
@@ -75,7 +75,7 @@ If you're not happy with that the fetch implementation can actually be [swapped]
 One of the motivations for centralizing all Api requests is having the ability to manipulate them in one place.  
 Therefore we provide additional parameters that can be used in order to expand the function,
 following are a list of options that can be accessed through optional parameters,
-if you use Typescript in your project you should be able to identify these,  
+if you use Typescript in your project you should be able to identify these with an autocompleting editor,  
 following is a complete description of all options:
 ```ts
 
@@ -89,6 +89,8 @@ curryRequest
 
 ```
 
-
+## Todo
+  - Add support for cancellation token
+  - Study composability options
 
   
