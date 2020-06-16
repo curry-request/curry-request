@@ -18,7 +18,7 @@ the original definition is:
     token -> Fetch.Response
 ```
 
-Although the module is already evolving to include additional/alternative parameters to the original definition it is guaranteed to stay compatible with its original form.
+Although the module is already evolving to include additional/alternative parameters, it is guaranteed to stay compatible with its original form.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Although the module is already evolving to include additional/alternative parame
 npm install -S curry-request
 ```
 
-This package is written in typescript, types included.
+This package is written in typescript, types are included.
 
 ## Usage
 
@@ -76,7 +76,7 @@ If you're not happy with that the fetch implementation can actually be [swapped]
 One of the motivations for centralizing all Api requests is having the ability to manipulate them in one place.  
 Therefore we provide additional parameters that can be used in order to expand the function,
 following are a list of options that can be accessed through optional parameters,
-if you use Typescript in your project you should be able to identify these,  
+if you use Typescript in your project you should be able to identify these with an autocompleting editor,  
 following is a complete description of all options:
 
 
@@ -89,3 +89,12 @@ curryRequest
   (payload?: string | object) =>
   (token?: string)
 ```
+<<<<<<< HEAD
+=======
+
+## Todo
+  - Add support for cancellation token
+  - Study composability options
+
+  
+>>>>>>> 20dc8ea6a010e5aee134cb901bf2fd2c9be04b9a
