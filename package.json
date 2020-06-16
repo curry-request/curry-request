@@ -1,6 +1,6 @@
 {
   "name": "curry-request",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Http request client built with one curried function",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

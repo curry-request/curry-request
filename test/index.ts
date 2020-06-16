@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import cr from "../lib"
+import cr from "../src"
 
 const apiRequest = cr("https://jsonplaceholder.typicode.com")({
   "Content-Type": "application/json",

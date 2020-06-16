@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import request from "../lib"
+import request from "../src"
 import { fetch } from "cross-fetch"
 
 import { mockedFetch } from "./utils"
@@ -11,7 +11,7 @@ const alternativeFetchImpl = mockedFetch({ status: 200 }) as typeof fetch
 const alternatives = [
   alternativeFetchImpl,
   (nodeFetch as unknown) as typeof fetch,
-  (isoUnfetch as unknown) as typeof fetch,
+  (isoUnfetch as unknown) as typeof fetch
 ]
 
 describe("alternativeFetchImpl - We can exchange fetch implementations", () => {
