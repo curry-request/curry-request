@@ -50,7 +50,7 @@ getTodosById("1")
   .then(res => console.log(res))
 
 // post example
-const postTodo = payload => apiPost('/todos)(payload)()
+const postTodo = payload => apiPost('/todos')(payload)()
 postTodo({title: "BuyMilk", completed: false})
   .then(res => res.json())
   .then(res => console.log(res))
