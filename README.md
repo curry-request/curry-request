@@ -89,12 +89,8 @@ curryRequest
   (payload?: string | object) =>
   (token?: string)
 ```
-<<<<<<< HEAD
-=======
 
 ## Todo
   - Add support for cancellation token
   - Study composability options
 
-  
->>>>>>> 20dc8ea6a010e5aee134cb901bf2fd2c9be04b9a
