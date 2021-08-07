@@ -10,6 +10,7 @@ const getTodosById = (id: string) => apiGet(`/todos/${id}`)()()
 const apiPost = apiRequest("POST")
 const postTodo = (payload: { [s: string]: any }) => apiPost("/todos")(payload)()
 
+// doing these calls on the real network are error prone
 describe("index - Smoke tests", () => {
   it("Should receive a status of 200", (done) => {
     cr("https://httpbin.org/")({})("GET")("ip")()()
