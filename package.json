@@ -4,15 +4,17 @@
   "description": "Http request client built with one curried function",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": ["lib/*"],
+  "files": [
+    "lib/*"
+  ],
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix",
     "test": "mocha -r ts-node/register test/*.ts",
     "build": "tsc",
     "prepare": "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint"
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint"
   },
   "author": "friki",
   "license": "ISC",
@@ -36,6 +38,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "abort-controller": "^3.0.0",
     "cross-fetch": "^3.0.4"
   },
   "repository": {
