@@ -32,7 +32,8 @@ const request =
     }
 
     if (payload) {
-      httpConfig.body = typeof payload === "object" ? JSON.stringify(payload) : payload
+      httpConfig.body =
+        typeof payload === "object" ? JSON.stringify(payload) : payload
     }
 
     const res = fetch(`${baseUrl}${route || ""}`, httpConfig) as AbortableFetch
