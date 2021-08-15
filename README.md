@@ -33,7 +33,7 @@ This package is written in typescript, types are included.
 Currying the main function you should be able to easily map REST APIs:
 
 ```ts
-import cr from 'curry-request'
+import cr from "curry-request"
 // we place the web api base url & the base headers
 const apiRequest = cr("https://jsonplaceholder.typicode.com")({
   "Content-Type": "application/json",
@@ -44,17 +44,16 @@ const apiGet = apiRequest("GET")
 const apiPost = apiRequest("POST")
 
 // get example
-const getTodosById = id => apiGet(`/todos/${id}`)()()
+const getTodosById = (id) => apiGet(`/todos/${id}`)()()
 getTodosById("1")
-  .then(res => res.json())
-  .then(res => console.log(res))
+  .then((res) => res.json())
+  .then((res) => console.log(res))
 
 // post example
-const postTodo = payload => apiPost('/todos')(payload)()
-postTodo({title: "BuyMilk", completed: false})
-  .then(res => res.json())
-  .then(res => console.log(res))
-
+const postTodo = (payload) => apiPost("/todos")(payload)()
+postTodo({ title: "BuyMilk", completed: false })
+  .then((res) => res.json())
+  .then((res) => console.log(res))
 ```
 
 ## Parameters explained
@@ -79,7 +78,6 @@ following are a list of options that can be accessed through optional parameters
 if you use Typescript in your project you should be able to identify these with an autocompleting editor,  
 following is a complete description of all options:
 
-
 ```ts
 curryRequest
   (baseUrl: string, fetchImplementation?: (req: Request => Promise<Response>)) =>
@@ -91,6 +89,8 @@ curryRequest
 ```
 
 ## Todo
-  - Add support for cancellation token
-  - Study composability options
 
+- Add support for cancellation token
+- Study composability options
+- Add typescript type output as generic when calling
+- Add support for overriding options in each function
