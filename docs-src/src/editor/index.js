@@ -1,10 +1,10 @@
 import curryReq from "/lib/index.es.js"
-import { doc as configDoc } from "../../example-contents/config"
-import { doc as actionsDoc } from "../../example-contents/actions"
+import { doc as configDoc } from "../../example-contents/config.js"
+import { doc as actionsDoc } from "../../example-contents/actions.js"
 import { doc as httpCallDoc } from "../../example-contents/http-call.js"
 
-import { bootstrapEditor, sectionMarkdownInjector } from "./util.js";
-import Logger from "./Logger"
+import { bootstrapEditor, sectionMarkdownInjector } from "./util.js"
+import Logger from "./Logger.js"
 
 // we need to treat the 'config' and 'actions' sections independently because it is used afterward and we need a reference here
 const configDocLinesLength = configDoc.split("\n").length

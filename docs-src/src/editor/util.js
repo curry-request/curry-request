@@ -11,8 +11,7 @@ import { javascript } from "@codemirror/lang-javascript"
 import { history, historyKeymap } from "@codemirror/history"
 import { defaultHighlightStyle } from "@codemirror/highlight"
 import { defaultKeymap } from "@codemirror/commands"
-import curryReq from "/lib/index.es.js"
-import marked from "marked"
+import cachedMdToHtmlFiles from "../../example-contents/cachedMdToHtmlFiles.json"
 
 let playgroundTheme = EditorView.theme({
   "&": {
@@ -56,9 +55,6 @@ export const sectionMarkdownInjector = (selector) => {
   const sectionMdNode = document.querySelector(
     `.feature.${selector} .feature__desc__txt`
   )
-  curryReq()()("GET")(`/example-contents/${selector}.md`)()()
-    .then((x) => x.text())
-    .then((x) => {
-      sectionMdNode.innerHTML = marked(x, { breaks: true })
-    })
+  const fileName = `${selector}.md`
+  sectionMdNode.innerHTML = cachedMdToHtmlFiles[fileName] || ""
 }
