@@ -8,7 +8,7 @@ import Logger from "./Logger"
 
 const configDocLinesLength = configDoc.split("\n").length
 const actionsDocLinesLength = actionsDoc.split("\n").length
-const httpCallDocLinesLength = httpCallDoc.split("\n").length
+const confDocLinesLength = configDocLinesLength + actionsDocLinesLength
 
 const configEditor = bootstrapEditor(
   document.querySelector(".config .feature__demo"),
@@ -19,52 +19,57 @@ const actionsEditor = bootstrapEditor(
   actionsDoc,
   configDocLinesLength
 )
-const httpCallEditor = bootstrapEditor(
-  document.querySelector(".http-call .feature__demo"),
-  httpCallDoc,
-  configDocLinesLength + actionsDocLinesLength
-)
 
-/** snippet for first section **/
-const runHttpCallBtn = document.querySelector(".http-call .run-example")
+const sections = [{ selector: ".http-call", editorDoc: httpCallDoc }]
 
 const logger = new Logger()
 
-runHttpCallBtn.addEventListener("click", (e) => {
-  const configStateDoc = configEditor.state.doc.toString()
-  const actionsStateDoc = actionsEditor.state.doc.toString()
-  const usageStateDoc = httpCallEditor.state.doc.toString()
-  const script = [configStateDoc, actionsStateDoc, usageStateDoc].join("\n")
-
-  const lastBlockLine =
-    configDocLinesLength + actionsDocLinesLength + httpCallDocLinesLength
-
-  const log = logger.setBlock(
-    ".http-call .output > pre",
-    ".http-call .clear-example"
+const actionsLogic = ({ selector, editorDoc }) => {
+  const editor = bootstrapEditor(
+    document.querySelector(`${selector} .feature__demo`),
+    editorDoc,
+    confDocLinesLength
   )
 
-  // we evaluate the script in a scoped context
-  Function(`"use strict"; return function(console, curryReq){ ${script} }`)()(
-    {
-      ...console,
-      log
-    },
-    curryReq
-  )
-})
+  /** run snippet **/
+  const runBtn = document.querySelector(`${selector} .run-example`)
 
-/** reset action for first section **/
-const resetHttpCallBtn = document.querySelector(".http-call .reset-example")
-resetHttpCallBtn.addEventListener("click", () => {
-  const cm = httpCallEditor
-  cm.dispatch({
-    changes: { from: 0, to: cm.state.doc.length, insert: httpCallDoc }
+  runBtn.addEventListener("click", (e) => {
+    const configStateDoc = configEditor.state.doc.toString()
+    const actionsStateDoc = actionsEditor.state.doc.toString()
+    const editorState = editor.state.doc.toString()
+    const script = [configStateDoc, actionsStateDoc, editorState].join("\n")
+
+    const log = logger.setBlock(
+      ".http-call .output > pre",
+      ".http-call .clear-example"
+    )
+
+    // we evaluate the script in a scoped context
+    Function(`"use strict"; return function(console, curryReq){ ${script} }`)()(
+      {
+        ...console,
+        log
+      },
+      curryReq
+    )
   })
-})
-const clearHttpCallBtn = document.querySelector(".http-call .clear-example")
-const preNode = document.querySelector(".http-call .output > pre")
-clearHttpCallBtn.addEventListener("click", () => {
-  preNode.textContent = '';
-  clearHttpCallBtn.setAttribute("disabled", "")
-})
+
+  /** reset action **/
+  const resetBtn = document.querySelector(`${selector} .reset-example`)
+  resetBtn.addEventListener("click", () => {
+    editor.dispatch({
+      changes: { from: 0, to: editor.state.doc.length, insert: editorDoc }
+    })
+  })
+
+  const clearBtn = document.querySelector(`${selector} .clear-example`)
+  const preNode = document.querySelector(`${selector} .output > pre`)
+  clearBtn.addEventListener("click", () => {
+    preNode.textContent = ""
+    clearBtn.setAttribute("disabled", "")
+  })
+}
+
+// we run all the action logic for all interested sections
+sections.forEach(actionsLogic)
