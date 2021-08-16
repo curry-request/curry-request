@@ -1,6 +1,5 @@
 ### Base Configuration
-Curry Request is conceived to centralize the management of api calls to common services (both in Node and in the 
-browser);
+Curry Request is conceived to centralize the management of api calls to common services (both in Node and in the browser);
 in the js ecosystem the most popular package for dealing with XHR is Axios, but we weren't satisfied with it so this module.
 <br/>
 Similar to Axios you can configure instances, and through the pluggable fetch module it can easily implement interceptors.

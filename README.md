@@ -87,10 +87,5 @@ curryRequest
   (payload?: string | object) =>
   (token?: string)
 ```
-
-## Todo
-
-- Add support for cancellation token
-- Study composability options
-- Add typescript type output as generic when calling
-- Add support for overriding options in each function
+## Playground
+for more info and examples have a look at the [playground](https://fracalo.github.io/curry-request/).
