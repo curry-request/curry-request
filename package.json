@@ -10,9 +10,9 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix",
-    "test": "mocha -r ts-node/register test/*.ts",
-    "build-mjs": "tsc -d && mv lib/index.js lib/index.mjs && cp lib/index.mjs lib/index.es.js",
-    "build-cjs": "tsc -m commonjs",
+    "test": "mocha  -r ts-node/register test/*.ts",
+    "build-mjs": "tsc -m es6 -d && mv lib/index.js lib/index.mjs && cp lib/index.mjs lib/index.es.js",
+    "build-cjs": "tsc",
     "build": "rimraf ./lib && npm run build-mjs && npm run build-cjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",

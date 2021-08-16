@@ -34,11 +34,11 @@ describe("index - Smoke tests", () => {
       .catch(done)
   })
 
-  it("Should be able to cast 'baseUrl' parameter", () => {
-    const req = cr()({})("GET")("ip")()()
+  it("Should be able to cast 'baseUrl' parameter", async () => {
+    const req = cr()({})("GET")("https://httpbin.org/ip")()()
 
-    req.then((x) => {
-      assert.equal(x.status, 404)
+    return req.then((x) => {
+      assert.equal(x.status, 200)
     })
   })
   /*
