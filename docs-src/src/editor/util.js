@@ -6,11 +6,13 @@ import {
   highlightActiveLine
 } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
-import {  lineNumbers } from "@codemirror/gutter"
+import { lineNumbers } from "@codemirror/gutter"
 import { javascript } from "@codemirror/lang-javascript"
 import { history, historyKeymap } from "@codemirror/history"
 import { defaultHighlightStyle } from "@codemirror/highlight"
 import { defaultKeymap } from "@codemirror/commands"
+import curryReq from "/lib/index.es.js"
+import marked from "marked"
 
 let playgroundTheme = EditorView.theme({
   "&": {
@@ -48,4 +50,15 @@ export const bootstrapEditor = (parent, doc, lineNumberOffset = 0) => {
     }),
     parent
   })
+}
+
+export const sectionMarkdownInjector = (selector) => {
+  const sectionMdNode = document.querySelector(
+    `.feature.${selector} .feature__desc__txt`
+  )
+  curryReq()()("GET")(`/example-contents/${selector}.md`)()()
+    .then((x) => x.text())
+    .then((x) => {
+      sectionMdNode.innerHTML = marked(x, { breaks: true })
+    })
 }

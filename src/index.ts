@@ -8,7 +8,7 @@ interface Abortable extends Promise<Response> {
 type AbortableFetch = Promise<Response> & Abortable
 
 const request =
-  (baseUrl: string, alternativeFetchImpl?: typeof fetch) =>
+  (baseUrl = "", alternativeFetchImpl?: typeof fetch) =>
   (baseHeaders?: { [k: string]: string }) =>
   (method: string) =>
   (route?: string) =>

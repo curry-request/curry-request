@@ -3,7 +3,7 @@ import cr from "../src"
 
 const apiRequest = cr("https://jsonplaceholder.typicode.com")({
   "Content-Type": "application/json",
-  Accept: "application/json",
+  Accept: "application/json"
 })
 const apiGet = apiRequest("GET")
 const getTodosById = (id: string) => apiGet(`/todos/${id}`)()()
@@ -34,6 +34,13 @@ describe("index - Smoke tests", () => {
       .catch(done)
   })
 
+  it("Should be able to cast 'baseUrl' parameter", () => {
+    const req = cr()({})("GET")("ip")()()
+
+    req.then((x) => {
+      assert.equal(x.status, 404)
+    })
+  })
   /*
    * sometimes typicode errors out 
   it("Doc post test should work", function (done) {

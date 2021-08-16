@@ -1870,6 +1870,7 @@ __metadata:
     eslint-config-prettier: ^6.11.0
     eslint-plugin-prettier: ^3.1.3
     isomorphic-unfetch: ^3.0.0
+    marked: ^3.0.0
     mocha: ^8.0.1
     modern-normalize: ^1.1.0
     node-fetch: ^2.6.0
@@ -3774,6 +3775,15 @@ fsevents@~2.1.2:
     socks-proxy-agent: ^5.0.0
     ssri: ^8.0.0
   checksum: 864e776e58b23f42e1eacd25529bb30a91de94b256f1518455336dbe80de56df076c69bd96d565f0cc47dd8aeaf34751d812f9b8a21e624d48812bccb6c11e29
+  languageName: node
+  linkType: hard
+
+"marked@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "marked@npm:3.0.0"
+  bin:
+    marked: bin/marked
+  checksum: 04d5ba7405463f8d8c0c1539dc7e06a253b2ebbdb41363ed8a3d0144bf0522f9a44d2c983fef979bbcf714c4f839f90e237e0a89b3a2fdcd58accc1675c4ec47
   languageName: node
   linkType: hard
 

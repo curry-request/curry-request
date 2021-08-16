@@ -82,7 +82,7 @@ main::before {
 .feature__desc {
   flex: 0 0 50%;
   padding-right: 2rem;
-  padding-left: 3rem;
+  padding-left: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -142,3 +142,14 @@ main::before {
   font-size: .9rem;
 }
 
+
+@media screen and (min-width: 768px) {
+  .feature__desc {
+    padding-left: 2rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .feature__desc {
+    padding-left: 3rem;
+  }
+}
