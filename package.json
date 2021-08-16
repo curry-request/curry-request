@@ -17,7 +17,8 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
-    "site-dev": "snowpack dev"
+    "site-dev": "snowpack dev",
+    "site-prod": "webpack"
   },
   "author": "friki",
   "license": "ISC",
