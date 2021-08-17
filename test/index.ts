@@ -11,8 +11,9 @@ const apiPost = apiRequest("POST")
 const postTodo = (payload: { [s: string]: any }) => apiPost("/todos")(payload)()
 
 // doing these calls on the real network are error prone
-describe("index - Smoke tests", () => {
-  it("Should receive a status of 200", (done) => {
+describe("index - Smoke tests", function() {
+  it("Should receive a status of 200", function(done) {
+    this.timeout(5000)
     cr("https://httpbin.org/")({})("GET")("ip")()()
       .then((x) => {
         assert.equal(x.status, 200)
