@@ -1,5 +1,7 @@
 ## Curry Request
 
+![example workflow](https://github.com/fracalo/curry-request/actions/workflows/node.js.yml/badge.svg)
+
 Composable/extendable http client built with one curried function.
 
 This module was born while dealing with REST resources in front-end applications,  
