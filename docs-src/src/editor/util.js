@@ -58,3 +58,12 @@ export const sectionMarkdownInjector = (selector) => {
   const fileName = `${selector}.md`
   sectionMdNode.innerHTML = cachedMdToHtmlFiles[fileName] || ""
 }
+
+const placeholderBlock = document.querySelector(".example-placeholder")
+const placeholderBlockParent = placeholderBlock.parentNode
+placeholderBlock.remove()
+export const prepareMarkup = (selector) => {
+  const cloned = placeholderBlock.cloneNode(true)
+  cloned.classList.add(selector)
+  placeholderBlockParent.append(cloned)
+}

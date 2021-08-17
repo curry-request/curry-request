@@ -2,8 +2,11 @@ import curryReq from "/lib/index.es.js"
 import { doc as configDoc } from "../../example-contents/config.js"
 import { doc as actionsDoc } from "../../example-contents/actions.js"
 import { doc as httpCallDoc } from "../../example-contents/http-call.js"
+import { doc as postPayloadDoc } from "../../example-contents/post-payload.js"
+import { doc as jwtInjectionDoc } from "../../example-contents/jwt-injection.js"
+import { doc as abortionDoc } from "../../example-contents/abortion.js"
 
-import { bootstrapEditor, sectionMarkdownInjector } from "./util.js"
+import { bootstrapEditor, sectionMarkdownInjector, prepareMarkup } from "./util.js"
 import Logger from "./Logger.js"
 
 // we need to treat the 'config' and 'actions' sections independently because it is used afterward and we need a reference here
@@ -25,12 +28,16 @@ sectionMarkdownInjector("actions")
 
 // this is a list of all sections
 const sections = [
-  { selector: "http-call", editorDoc: httpCallDoc }
+  { selector: "http-call", editorDoc: httpCallDoc },
+  { selector: "post-payload", editorDoc: postPayloadDoc },
+  { selector: "jwt-injection", editorDoc: jwtInjectionDoc },
+  { selector: "abortion", editorDoc: abortionDoc }
 ]
 
 const logger = new Logger()
 
 const actionsLogic = ({ selector, editorDoc }) => {
+  prepareMarkup(selector)
   sectionMarkdownInjector(selector)
 
   const parent = document.querySelector(`.${selector} .feature__demo`)
@@ -51,8 +58,8 @@ const actionsLogic = ({ selector, editorDoc }) => {
       const script = [configStateDoc, actionsStateDoc, editorState].join("\n")
 
       const log = logger.setBlock(
-        ".http-call .output > pre",
-        ".http-call .clear-example"
+        `.${selector} .output > pre`,
+        `.${selector} .clear-example`
       )
 
       // we evaluate the script in a scoped context
