@@ -19,7 +19,8 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "site-dev": "snowpack dev",
-    "site-prod": "webpack"
+    "site-prod": "webpack",
+    "report-coverage": "nyc --reporter text-lcov yarn test > coverage/coverage-final.json"
   },
   "author": "friki",
   "license": "ISC",
@@ -42,6 +43,7 @@
     "mocha": "^8.0.1",
     "modern-normalize": "^1.1.0",
     "node-fetch": "^2.6.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "snowpack": "^3.8.3",
