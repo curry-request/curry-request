@@ -67,3 +67,17 @@ export const prepareMarkup = (selector) => {
   cloned.classList.add(selector)
   placeholderBlockParent.append(cloned)
 }
+
+export const eventuallyScrollTo = () => {
+  const hash = window.location.hash
+  if (!hash) return
+
+  const node = document.querySelector(hash)
+  if (!node) return
+
+  const distanceFromTop = node.getBoundingClientRect().top
+  window.scrollTo({
+    top: distanceFromTop,
+    behavior: "smooth"
+  })
+}

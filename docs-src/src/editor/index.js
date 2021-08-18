@@ -5,8 +5,9 @@ import { doc as httpCallDoc } from "../../example-contents/http-call.js"
 import { doc as postPayloadDoc } from "../../example-contents/post-payload.js"
 import { doc as jwtInjectionDoc } from "../../example-contents/jwt-injection.js"
 import { doc as abortionDoc } from "../../example-contents/abortion.js"
+import { doc as motivationPostDoc } from "../../example-contents/example-from-motivation-post"
 
-import { bootstrapEditor, sectionMarkdownInjector, prepareMarkup } from "./util.js"
+import { bootstrapEditor, sectionMarkdownInjector, prepareMarkup, eventuallyScrollTo } from "./util.js";
 import Logger from "./Logger.js"
 
 // we need to treat the 'config' and 'actions' sections independently because it is used afterward and we need a reference here
@@ -31,7 +32,8 @@ const sections = [
   { selector: "http-call", editorDoc: httpCallDoc },
   { selector: "post-payload", editorDoc: postPayloadDoc },
   { selector: "jwt-injection", editorDoc: jwtInjectionDoc },
-  { selector: "abortion", editorDoc: abortionDoc }
+  { selector: "abortion", editorDoc: abortionDoc },
+  { selector: "example-from-motivation-post", editorDoc: motivationPostDoc }
 ]
 
 const logger = new Logger()
@@ -95,3 +97,4 @@ const actionsLogic = ({ selector, editorDoc }) => {
 
 // we run all the action logic for all interested sections
 sections.forEach(actionsLogic)
+eventuallyScrollTo()

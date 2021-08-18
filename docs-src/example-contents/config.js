@@ -16,6 +16,8 @@ const apiRequest = curryReq(baseUrl)(baseHeaders)
 // differently from axios this is a manual operation
 const get = apiRequest('GET')
 const post = apiRequest('POST')
+const put = apiRequest('PUT')
+const del = apiRequest('DELETE')
 `
 
 

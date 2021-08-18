@@ -486,8 +486,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _example_contents_post_payload_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19);
 /* harmony import */ var _example_contents_jwt_injection_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20);
 /* harmony import */ var _example_contents_abortion_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(21);
-/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(22);
-/* harmony import */ var _Logger_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42);
+/* harmony import */ var _example_contents_example_from_motivation_post__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(22);
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(23);
+/* harmony import */ var _Logger_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(43);
+
 
 
 
@@ -504,34 +506,35 @@ const configDocLinesLength = _example_contents_config_js__WEBPACK_IMPORTED_MODUL
 const actionsDocLinesLength = _example_contents_actions_js__WEBPACK_IMPORTED_MODULE_2__.doc.split("\n").length
 const confDocLinesLength = configDocLinesLength + actionsDocLinesLength
 
-const configEditor = (0,_util_js__WEBPACK_IMPORTED_MODULE_7__.bootstrapEditor)(
+const configEditor = (0,_util_js__WEBPACK_IMPORTED_MODULE_8__.bootstrapEditor)(
   document.querySelector(".config .feature__demo"),
   _example_contents_config_js__WEBPACK_IMPORTED_MODULE_1__.doc
 )
-const actionsEditor = (0,_util_js__WEBPACK_IMPORTED_MODULE_7__.bootstrapEditor)(
+const actionsEditor = (0,_util_js__WEBPACK_IMPORTED_MODULE_8__.bootstrapEditor)(
   document.querySelector(".actions .feature__demo"),
   _example_contents_actions_js__WEBPACK_IMPORTED_MODULE_2__.doc,
   configDocLinesLength
 )
-;(0,_util_js__WEBPACK_IMPORTED_MODULE_7__.sectionMarkdownInjector)("config")
-;(0,_util_js__WEBPACK_IMPORTED_MODULE_7__.sectionMarkdownInjector)("actions")
+;(0,_util_js__WEBPACK_IMPORTED_MODULE_8__.sectionMarkdownInjector)("config")
+;(0,_util_js__WEBPACK_IMPORTED_MODULE_8__.sectionMarkdownInjector)("actions")
 
 // this is a list of all sections
 const sections = [
   { selector: "http-call", editorDoc: _example_contents_http_call_js__WEBPACK_IMPORTED_MODULE_3__.doc },
   { selector: "post-payload", editorDoc: _example_contents_post_payload_js__WEBPACK_IMPORTED_MODULE_4__.doc },
   { selector: "jwt-injection", editorDoc: _example_contents_jwt_injection_js__WEBPACK_IMPORTED_MODULE_5__.doc },
-  { selector: "abortion", editorDoc: _example_contents_abortion_js__WEBPACK_IMPORTED_MODULE_6__.doc }
+  { selector: "abortion", editorDoc: _example_contents_abortion_js__WEBPACK_IMPORTED_MODULE_6__.doc },
+  { selector: "example-from-motivation-post", editorDoc: _example_contents_example_from_motivation_post__WEBPACK_IMPORTED_MODULE_7__.doc }
 ]
 
-const logger = new _Logger_js__WEBPACK_IMPORTED_MODULE_8__.default()
+const logger = new _Logger_js__WEBPACK_IMPORTED_MODULE_9__.default()
 
 const actionsLogic = ({ selector, editorDoc }) => {
-  ;(0,_util_js__WEBPACK_IMPORTED_MODULE_7__.prepareMarkup)(selector)
-  ;(0,_util_js__WEBPACK_IMPORTED_MODULE_7__.sectionMarkdownInjector)(selector)
+  ;(0,_util_js__WEBPACK_IMPORTED_MODULE_8__.prepareMarkup)(selector)
+  ;(0,_util_js__WEBPACK_IMPORTED_MODULE_8__.sectionMarkdownInjector)(selector)
 
   const parent = document.querySelector(`.${selector} .feature__demo`)
-  const editor = (0,_util_js__WEBPACK_IMPORTED_MODULE_7__.bootstrapEditor)(
+  const editor = (0,_util_js__WEBPACK_IMPORTED_MODULE_8__.bootstrapEditor)(
     parent,
     editorDoc,
     confDocLinesLength
@@ -585,6 +588,7 @@ const actionsLogic = ({ selector, editorDoc }) => {
 
 // we run all the action logic for all interested sections
 sections.forEach(actionsLogic)
+;(0,_util_js__WEBPACK_IMPORTED_MODULE_8__.eventuallyScrollTo)()
 
 
 /***/ }),
@@ -1235,6 +1239,8 @@ const apiRequest = curryReq(baseUrl)(baseHeaders)
 // differently from axios this is a manual operation
 const get = apiRequest('GET')
 const post = apiRequest('POST')
+const put = apiRequest('PUT')
+const del = apiRequest('DELETE')
 `
 
 
@@ -1284,14 +1290,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const doc = ` 
 const payload = { title: 'Day at the park', content: 'Once upon a time ...', author: 'Celine' }
-const sendPost = post('/posts')
+const createTodo = post('/todos')
 
-sendPost(payload)()
+createTodo(payload)()
   .then(x => {
     console.log('first', x)
   })
 
-sendPost(JSON.stringify(payload))()
+createTodo(JSON.stringify(payload))()
   .then(x => {
     console.log('second', x)
   })
@@ -1345,18 +1351,59 @@ setTimeout(req.abort, 1)
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "doc": () => (/* binding */ doc)
+/* harmony export */ });
+
+const doc = ` 
+
+// get                                                                                                                                                                                                                                    
+const getTodosById = (id) => get("/todos/" + id)()()                                                                                                                                                                            
+                                                                                                                                                                                                                                          
+// post                                                                                                                                                                                                                                   
+const postTodo = (payload) => post("/todos")(payload)()                                                                                                                                                                         
+                                                                                                                                                                                                                                          
+// post                                                                                                                                                                                                                                   
+const putTodo = (id, payload) => put("/todos/" + id)(payload)()                                                                                                                                                                           
+                                                                                                                                                                                                                                          
+// delete                                                                                                                                                                                                                                 
+const deleteTodosById = (id) => del("/todos/" + id)()();
+
+(async () =>  {
+  const postedTodo = await postTodo({ title: 'New activity' }).then(x => x.json())
+  console.log('postedTodo', postedTodo)
+  
+  const post1 = await getTodosById(1).then(x => x.json()) 
+  console.log('post1',post1)
+  
+  const updatedTodo = await putTodo(1, { title: 'Buy milk' }).then(x => x.json())
+  console.log('updatedTodo', updatedTodo)
+
+  const delResponse = await deleteTodosById(1)
+  console.log('delResponse', delResponse)
+})()
+`
+
+
+/***/ }),
+/* 23 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "bootstrapEditor": () => (/* binding */ bootstrapEditor),
 /* harmony export */   "sectionMarkdownInjector": () => (/* binding */ sectionMarkdownInjector),
-/* harmony export */   "prepareMarkup": () => (/* binding */ prepareMarkup)
+/* harmony export */   "prepareMarkup": () => (/* binding */ prepareMarkup),
+/* harmony export */   "eventuallyScrollTo": () => (/* binding */ eventuallyScrollTo)
 /* harmony export */ });
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24);
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_gutter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
-/* harmony import */ var _codemirror_lang_javascript__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(37);
-/* harmony import */ var _codemirror_history__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(31);
-/* harmony import */ var _codemirror_highlight__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32);
-/* harmony import */ var _codemirror_commands__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(35);
-/* harmony import */ var _example_contents_cachedMdToHtmlFiles_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(23);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_gutter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(31);
+/* harmony import */ var _codemirror_lang_javascript__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(38);
+/* harmony import */ var _codemirror_history__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(32);
+/* harmony import */ var _codemirror_highlight__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(33);
+/* harmony import */ var _codemirror_commands__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36);
+/* harmony import */ var _example_contents_cachedMdToHtmlFiles_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
 
 
 
@@ -1421,16 +1468,29 @@ const prepareMarkup = (selector) => {
   placeholderBlockParent.append(cloned)
 }
 
+const eventuallyScrollTo = () => {
+  const hash = window.location.hash
+  if (!hash) return
 
-/***/ }),
-/* 23 */
-/***/ ((module) => {
+  const node = document.querySelector(hash)
+  if (!node) return
 
-"use strict";
-module.exports = JSON.parse('{"abortion.md":"<h3 id=\\"abortion\\">Abortion</h3>\\n<p>the returned promise also has an <strong>abort</strong> method for aborting the request.</p>\\n","actions.md":"<h3 id=\\"action-setup\\">Action setup</h3>\\n<p>Preparation of our actions (as controller-actions) is quite terse.</p>\\n","config.md":"<h3 id=\\"base-configuration\\">Base Configuration</h3>\\n<p>Curry Request is conceived to centralize the management of api calls to common services (both in Node and in the browser);<br>in the js ecosystem the most popular package for dealing with XHR is Axios, but we weren&#39;t satisfied with it so this module.<br><br/><br>Similar to Axios you can configure instances, and through the pluggable fetch module it can easily implement interceptors.<br><br/><br>Differently from Axios, it is not such a high abstraction,<br>it is built with the assumption that <strong>fetch is good enough</strong>, and it doesn&#39;t transform inputs and outputs so drastically.<br>this is done through a simple curried function, with the fetch parameters ordered for our convenience.</p>\\n","http-call.md":"<h3 id=\\"http-call\\">Http call</h3>\\n<p>The returning function is the one that actually makes the http-request,<br>keep in mind that you can supply the optional token value that will be used in authorization header, with the<br><em>Bearer</em> prefix.</p>\\n","jwt-injection.md":"<h3 id=\\"jwt-injection\\">JWT injection</h3>\\n<p>The last function of the curried chain takes one optional parameter we called <strong>token</strong>;<br>if present, this wiil be concatenated with the <strong>Bearer</strong> prefix and used as value for the <strong>Authorization</strong> header</p>\\n","post-payload.md":"<h3 id=\\"post-payload\\">Post payload</h3>\\n<p>Passing a string in the payload body parameter will be simply attached as-is,<br>but if we pass ad object or array it will be automatically serialized.</p>\\n"}');
+  const distanceFromTop = node.getBoundingClientRect().top
+  window.scrollTo({
+    top: distanceFromTop,
+    behavior: "smooth"
+  })
+}
 
 /***/ }),
 /* 24 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"abortion.md":"<h3 id=\\"abortion\\">Abortion</h3>\\n<p>The returned promise also has an <strong>abort</strong> method for aborting the request.</p>\\n","actions.md":"<h3 id=\\"action-setup\\">Action setup</h3>\\n<p>Preparation of our actions (as controller-actions) is quite terse.</p>\\n","config.md":"<h3 id=\\"base-configuration\\">Base Configuration</h3>\\n<p>Curry Request is conceived to centralize the management of api calls to common services (both in Node and in the browser);<br>in the js ecosystem the most popular package for dealing with XHR is Axios, but we weren&#39;t satisfied with it so this module.<br><br/><br>Similar to Axios you can configure instances, and through the pluggable fetch module it can easily implement interceptors.<br><br/><br>Differently from Axios, it is not such a high abstraction,<br>it is built with the assumption that <strong>fetch is good enough</strong>, and it doesn&#39;t transform inputs and outputs so drastically.<br>this is done through a simple curried function, with the fetch parameters ordered for our convenience.</p>\\n","example-from-motivation-post.md":"<h3 id=\\"random-examples\\">Random examples</h3>\\n<p>These are some examples from the <a href=\\"https://fcalo.com\\">package motivation post</a>.</p>\\n","http-call.md":"<h3 id=\\"http-call\\">Http call</h3>\\n<p>The returning function is the one that actually makes the http-request,<br>keep in mind that you can supply the optional token value that will be used in authorization header, with the<br><em>Bearer</em> prefix.</p>\\n","jwt-injection.md":"<h3 id=\\"jwt-injection\\">JWT injection</h3>\\n<p>The last function of the curried chain takes one optional parameter we called <strong>token</strong>;<br>if present, this wiil be concatenated with the <strong>Bearer</strong> prefix and used as value for the <strong>Authorization</strong> header.</p>\\n","post-payload.md":"<h3 id=\\"post-payload\\">Post payload</h3>\\n<p>Passing a string in the payload body parameter will be simply attached as-is,<br>but if we pass ad object or array it will be automatically serialized.</p>\\n"}');
+
+/***/ }),
+/* 25 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1458,11 +1518,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "placeholder": () => (/* binding */ placeholder),
 /* harmony export */   "runScopeHandlers": () => (/* binding */ runScopeHandlers)
 /* harmony export */ });
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(28);
-/* harmony import */ var style_mod__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
-/* harmony import */ var _codemirror_rangeset__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
-/* harmony import */ var w3c_keyname__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
+/* harmony import */ var style_mod__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
+/* harmony import */ var _codemirror_rangeset__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
+/* harmony import */ var w3c_keyname__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
 
 
 
@@ -8286,7 +8346,7 @@ const __test = { HeightMap, HeightOracle, MeasuredHeights, QueryType, ChangedRan
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8455,7 +8515,7 @@ class StyleSet {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8466,7 +8526,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "RangeSetBuilder": () => (/* binding */ RangeSetBuilder),
 /* harmony export */   "RangeValue": () => (/* binding */ RangeValue)
 /* harmony export */ });
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
 
 
 /**
@@ -9287,7 +9347,7 @@ function findMinIndex(value, array) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9312,7 +9372,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Transaction": () => (/* binding */ Transaction),
 /* harmony export */   "combineConfig": () => (/* binding */ combineConfig)
 /* harmony export */ });
-/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
 
 
 
@@ -11507,7 +11567,7 @@ combine = {}) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12143,7 +12203,7 @@ class Line {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12280,7 +12340,7 @@ function keyName(event) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12294,9 +12354,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "lineNumberMarkers": () => (/* binding */ lineNumberMarkers),
 /* harmony export */   "lineNumbers": () => (/* binding */ lineNumbers)
 /* harmony export */ });
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24);
-/* harmony import */ var _codemirror_rangeset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
+/* harmony import */ var _codemirror_rangeset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
 
 
 
@@ -12720,7 +12780,7 @@ function highlightActiveLineGutter() {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12738,8 +12798,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "undoDepth": () => (/* binding */ undoDepth),
 /* harmony export */   "undoSelection": () => (/* binding */ undoSelection)
 /* harmony export */ });
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
 
 
 
@@ -13097,7 +13157,7 @@ const historyKeymap = [
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13111,12 +13171,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "styleTags": () => (/* binding */ styleTags),
 /* harmony export */   "tags": () => (/* binding */ tags)
 /* harmony export */ });
-/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
-/* harmony import */ var style_mod__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34);
-/* harmony import */ var _codemirror_rangeset__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
+/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
+/* harmony import */ var style_mod__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(35);
+/* harmony import */ var _codemirror_rangeset__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
 
 
 
@@ -14081,7 +14141,7 @@ const classHighlightStyle = /*@__PURE__*/HighlightStyle.define([
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15106,7 +15166,7 @@ class StringInput {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15139,10 +15199,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "languageDataProp": () => (/* binding */ languageDataProp),
 /* harmony export */   "syntaxTree": () => (/* binding */ syntaxTree)
 /* harmony export */ });
-/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
-/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
+/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
+/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
 
 
 
@@ -16215,7 +16275,7 @@ function foldable(state, lineStart, lineEnd) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16294,12 +16354,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "standardKeymap": () => (/* binding */ standardKeymap),
 /* harmony export */   "transposeChars": () => (/* binding */ transposeChars)
 /* harmony export */ });
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(28);
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24);
-/* harmony import */ var _codemirror_matchbrackets__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(36);
-/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
-/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(29);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
+/* harmony import */ var _codemirror_matchbrackets__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(37);
+/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(35);
+/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
 
 
 
@@ -17187,7 +17247,7 @@ const defaultTabBinding = { key: "Tab", run: insertTab, shift: indentSelection }
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17196,10 +17256,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "bracketMatching": () => (/* binding */ bracketMatching),
 /* harmony export */   "matchBrackets": () => (/* binding */ matchBrackets)
 /* harmony export */ });
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24);
-/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(35);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25);
+/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
 
 
 
@@ -17337,7 +17397,7 @@ function matchPlainBrackets(state, pos, dir, tree, tokenType, maxScanDistance, b
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17351,10 +17411,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "tsxLanguage": () => (/* binding */ tsxLanguage),
 /* harmony export */   "typescriptLanguage": () => (/* binding */ typescriptLanguage)
 /* harmony export */ });
-/* harmony import */ var lezer_javascript__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(38);
-/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
-/* harmony import */ var _codemirror_highlight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(32);
-/* harmony import */ var _codemirror_autocomplete__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(40);
+/* harmony import */ var lezer_javascript__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
+/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35);
+/* harmony import */ var _codemirror_highlight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33);
+/* harmony import */ var _codemirror_autocomplete__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(41);
 
 
 
@@ -17570,7 +17630,7 @@ function translateDiagnostic(input, doc, offset) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17578,7 +17638,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "parser": () => (/* binding */ parser)
 /* harmony export */ });
-/* harmony import */ var lezer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(39);
+/* harmony import */ var lezer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(40);
 
 
 // This file was generated by lezer-generator. You probably shouldn't edit it.
@@ -17698,7 +17758,7 @@ const parser = lezer__WEBPACK_IMPORTED_MODULE_0__.Parser.deserialize({
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17715,7 +17775,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Stack": () => (/* binding */ Stack),
 /* harmony export */   "Token": () => (/* binding */ Token)
 /* harmony export */ });
-/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
+/* harmony import */ var lezer_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
 
 
 
@@ -19219,7 +19279,7 @@ function findFinished(stacks) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19245,11 +19305,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "snippetKeymap": () => (/* binding */ snippetKeymap),
 /* harmony export */   "startCompletion": () => (/* binding */ startCompletion)
 /* harmony export */ });
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
-/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(24);
-/* harmony import */ var _codemirror_tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
-/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* harmony import */ var _codemirror_text__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var _codemirror_tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42);
+/* harmony import */ var _codemirror_language__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
 
 
 
@@ -20578,7 +20638,7 @@ function currentCompletions(state) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20588,8 +20648,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "showTooltip": () => (/* binding */ showTooltip),
 /* harmony export */   "tooltips": () => (/* binding */ tooltips)
 /* harmony export */ });
-/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
+/* harmony import */ var _codemirror_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
+/* harmony import */ var _codemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
 
 
 
@@ -20896,7 +20956,7 @@ function hoverTooltip(source, options = {}) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";

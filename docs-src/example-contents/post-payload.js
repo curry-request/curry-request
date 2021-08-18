@@ -1,13 +1,13 @@
 export const doc = ` 
 const payload = { title: 'Day at the park', content: 'Once upon a time ...', author: 'Celine' }
-const sendPost = post('/posts')
+const createTodo = post('/todos')
 
-sendPost(payload)()
+createTodo(payload)()
   .then(x => {
     console.log('first', x)
   })
 
-sendPost(JSON.stringify(payload))()
+createTodo(JSON.stringify(payload))()
   .then(x => {
     console.log('second', x)
   })
