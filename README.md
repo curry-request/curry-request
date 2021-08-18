@@ -1,5 +1,7 @@
-## Curry Request
-
+Curry Request<br>
+[![NPM Version](https://img.shields.io/npm/v/curry-request.svg?branch=main)](https://www.npmjs.com/package/curry-request)
+[![Downloads Per Week](https://img.shields.io/npm/dw/curry-request.svg?color=blue)](https://www.npmjs.com/package/curry-request)
+[![License: MIT](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 ![example workflow](https://github.com/fracalo/curry-request/actions/workflows/node.js.yml/badge.svg)
 
 Composable/extendable http client built with one curried function.
