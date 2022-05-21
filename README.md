@@ -1,7 +1,7 @@
 Curry Request<br>
 [![NPM Version](https://img.shields.io/npm/v/curry-request.svg?branch=main)](https://www.npmjs.com/package/curry-request)
 [![Downloads Per Week](https://img.shields.io/npm/dw/curry-request.svg?color=blue)](https://www.npmjs.com/package/curry-request)
-[![License: MIT](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 ![example workflow](https://github.com/fracalo/curry-request/actions/workflows/node.js.yml/badge.svg)
 [![codecov](https://codecov.io/gh/fracalo/curry-request/branch/master/graph/badge.svg)](https://codecov.io/gh/fracalo/curry-request)
 ======
@@ -94,4 +94,4 @@ curryRequest
   (token?: string)
 ```
 ## Playground
-for more info and examples have a look at the [playground](https://fracalo.github.io/curry-request/).
+for more info and examples have a look at the [playground](https://curry-request.github.io/curry-request/).
