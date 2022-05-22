@@ -2,16 +2,16 @@ Curry Request<br>
 [![NPM Version](https://img.shields.io/npm/v/curry-request.svg?branch=main)](https://www.npmjs.com/package/curry-request)
 [![Downloads Per Week](https://img.shields.io/npm/dw/curry-request.svg?color=blue)](https://www.npmjs.com/package/curry-request)
 [![License: MIT](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-![example workflow](https://github.com/fracalo/curry-request/actions/workflows/node.js.yml/badge.svg)
+[example workflow](https://github.com/fracalo/curry-request/actions/workflows/node.js.yml/badge.svg)
 [![codecov](https://codecov.io/gh/fracalo/curry-request/branch/master/graph/badge.svg)](https://codecov.io/gh/fracalo/curry-request)
 ======
 
 Composable/extendable http client built with one curried function.
 
-This module was born while dealing with REST resources in front-end applications,  
+This module was born while dealing with REST resources in front-end applications,
 de-duplicating the configuration of `fetch` has proven, in our experience, to be beneficial in the maintainability of the App's Api calls.
 
-This is implemented in a functional fashion extending the configuration definition for the fetch function,  
+This is implemented in a functional fashion extending the configuration definition for the fetch function,
 the original definition is:
 
 ```haskell
@@ -73,15 +73,15 @@ postTodo({ title: "BuyMilk", completed: false })
 
 ## Compatibility
 
-Although it was born in browser context the default fetch implementation (`cross-fetch`) is compatible also with **nodejs**.  
+Although it was born in browser context the default fetch implementation (`cross-fetch`) is compatible also with **nodejs**.
 If you're not happy with that the fetch implementation can actually be [swapped](#extendability).
 
 ## Extendability
 
-One of the motivations for centralizing all Api requests is having the ability to manipulate them in one place.  
+One of the motivations for centralizing all Api requests is having the ability to manipulate them in one place.
 Therefore we provide additional parameters that can be used in order to expand the function,
 following are a list of options that can be accessed through optional parameters,
-if you use Typescript in your project you should be able to identify these with an autocompleting editor,  
+if you use Typescript in your project you should be able to identify these with an autocompleting editor,
 following is a complete description of all options:
 
 ```ts
