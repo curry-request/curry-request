@@ -14,7 +14,6 @@
     "build-mjs": "tsc -m es6 -d && mv lib/index.js lib/index.mjs && cp lib/index.mjs lib/index.es.js",
     "build-cjs": "tsc",
     "build": "rimraf ./lib && npm run build-mjs && npm run build-cjs",
-    "compile-md-examples": "node ../curry-request-docs/mdParsingScript.mjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
