@@ -4,7 +4,7 @@ Curry Request<br>
 ![example workflow](https://github.com/curry-request/curry-request/actions/workflows/node.js.yml/badge.svg)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![codecov](https://codecov.io/gh/fracalo/curry-request/branch/master/graph/badge.svg)](https://codecov.io/gh/fracalo/curry-request)
-
+====
 Composable/extendable http client built with one curried function.
 
 This module was born while dealing with REST resources in front-end applications,
