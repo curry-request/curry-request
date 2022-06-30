@@ -1,31 +1,31 @@
 
-> curry-request@1.1.0 test
-> mocha  -r ts-node/register test/*.ts
+> curry-request@2.0.1 test
+> mocha -r ts-node/esm test/*.ts
 
 
 
   abortCtrl - Use AbortController
-    ✓ Should be able to abort a request (145ms)
-    ✓ Pulling the abort trigger sync should still work
-    ✓ node fetch works like in docs
+    ✔ Should be able to abort a request (139ms)
+    ✔ Pulling the abort trigger sync should still work
+    ✔ node fetch works like in docs
 
   alternativeFetchImpl - We can exchange fetch implementations
-    ✓ Should be able to use mockedFetch (125ms)
+    ✔ Should be able to use mockedFetch (125ms)
 
   index - Smoke tests
-    ✓ Should receive a status of 200 (844ms)
-    ✓ Doc get test should work (336ms)
-    ✓ Should be able to cast 'baseUrl' parameter (655ms)
+    ✔ Should receive a status of 200 (779ms)
+    ✔ Doc get test should work (286ms)
+    ✔ Should be able to cast 'baseUrl' parameter (456ms)
 
   payload - We can pass the string array and objects as payload parameter
-    ✓ Should be able to use string (125ms)
-    ✓ Should be able to use empty object (124ms)
-    ✓ Should be able to use a regular object (124ms)
-    ✓ Should be able to use a nested object (126ms)
-    ✓ Should be able to use an array (124ms)
+    ✔ Should be able to use string (125ms)
+    ✔ Should be able to use empty object (124ms)
+    ✔ Should be able to use a regular object (125ms)
+    ✔ Should be able to use a nested object (125ms)
+    ✔ Should be able to use an array (125ms)
 
 
-  12 passing (3s)
+  12 passing (2s)
 
 TN:
 SF:src/index.ts

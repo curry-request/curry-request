@@ -1,6 +1,6 @@
 {
   "name": "curry-request",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Http request client built with one curried function",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -48,7 +48,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fracalo/curry-request.git"
+    "url": "https://github.com/curry-request/curry-request.git"
   },
   "keywords": [
     "http",
